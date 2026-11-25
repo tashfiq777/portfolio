@@ -1,0 +1,2459 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tashfiqur Rahman — Mechanical Engineering Portfolio (CAD, FEA & CFD)</title>
+  <meta name="description" content="Engineering portfolio of Tashfiqur Rahman, Mechanical Engineering undergraduate at RUET and Team Crack Platoon member specializing in SOLIDWORKS CAD, ANSYS Mechanical FEA, and ANSYS Fluent CFD." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS — ARCHITECTURAL OBSIDIAN & TITANIUM
+       ========================================================================== */
+    :root {
+      --bg: #09090b;
+      --bg-elevated: #111114;
+      --bg-card: #141418;
+      --bg-card-hover: #1a1a20;
+      --bg-glass: rgba(9, 9, 11, 0.78);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text-primary: #f4f4f6;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.12);
+      --accent-border: rgba(249, 115, 22, 0.35);
+      --cyan: #22d3ee;
+      --grid-line: rgba(255, 255, 255, 0.028);
+      --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.55);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    [data-theme="light"] {
+      --bg: #f6f6f3;
+      --bg-elevated: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #fafaf8;
+      --bg-glass: rgba(246, 246, 243, 0.84);
+      --border: rgba(15, 23, 42, 0.09);
+      --border-strong: rgba(15, 23, 42, 0.18);
+      --text-primary: #0f1115;
+      --text-secondary: #47505e;
+      --text-muted: #6b7280;
+      --accent: #ea580c;
+      --accent-soft: rgba(234, 88, 12, 0.1);
+      --accent-border: rgba(234, 88, 12, 0.3);
+      --cyan: #0891b2;
+      --grid-line: rgba(15, 23, 42, 0.035);
+      --shadow-lg: 0 24px 60px rgba(15, 23, 42, 0.09);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      background-size: 72px 72px;
+      color: var(--text-primary);
+      line-height: 1.65;
+      overflow-x: hidden;
+      transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
+    }
+
+    body.modal-open { overflow: hidden; }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    button { font-family: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 48px);
+    }
+
+    .mono { font-family: var(--font-mono); }
+    .display { font-family: var(--font-display); }
+
+    /* Scroll progress bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      z-index: 1000;
+      transition: width 0.08s linear;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: var(--bg-glass);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.08rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s, background-color 0.2s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-primary);
+      background: var(--border);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      color: var(--text-secondary);
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .icon-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+      background: var(--bg-elevated);
+    }
+
+    .nav-cta {
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--text-primary);
+      color: var(--bg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: transform 0.2s var(--ease-out), opacity 0.2s;
+    }
+
+    .nav-cta:hover { transform: translateY(-1px); opacity: 0.92; }
+
+    .mobile-toggle { display: none; }
+
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      inset: 70px 0 0 0;
+      background: var(--bg);
+      z-index: 95;
+      padding: 28px 24px;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .mobile-drawer.open { display: flex; }
+
+    .mobile-drawer a {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ==========================================================================
+       SECTION STRUCTURE & REVEALS
+       ========================================================================== */
+    section {
+      padding: clamp(72px, 9vw, 128px) 0;
+      position: relative;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: clamp(36px, 5vw, 56px);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.2vw, 3.35rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      max-width: 720px;
+    }
+
+    .section-sub {
+      color: var(--text-secondary);
+      max-width: 440px;
+      font-size: 0.98rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       SECTION 01 — HERO
+       ========================================================================== */
+    .hero {
+      padding: clamp(48px, 7vw, 96px) 0 clamp(64px, 8vw, 112px);
+      min-height: calc(100vh - 70px);
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+      gap: clamp(32px, 5vw, 68px);
+      align-items: center;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.55);
+      animation: pulse 2.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.55); }
+      70% { box-shadow: 0 0 0 8px rgba(34, 211, 238, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
+    }
+
+    .hero-name-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .cv-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-border);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: all 0.22s var(--ease-out);
+    }
+
+    .cv-pill-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .hero-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-bn {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.55rem, 5.6vw, 4.65rem);
+      font-weight: 700;
+      line-height: 1.03;
+      letter-spacing: -0.035em;
+      margin-bottom: 22px;
+    }
+
+    .hero-title .accent-word {
+      color: var(--accent);
+    }
+
+    .hero-lead {
+      font-size: clamp(1rem, 1.3vw, 1.14rem);
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 26px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.94rem;
+      transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(249, 115, 22, 0.28);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.94rem;
+      transition: all 0.25s var(--ease-out);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-border);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .hero-specs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .spec-item-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .spec-item-val {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Hero Right Visual */
+    .hero-visual {
+      position: relative;
+    }
+
+    .portrait-frame {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 4 / 4.3;
+    }
+
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: contrast(1.03) saturate(0.96);
+      transition: transform 0.7s var(--ease-out);
+    }
+
+    .portrait-frame:hover img { transform: scale(1.03); }
+
+    .portrait-overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(9, 9, 11, 0.92), rgba(9, 9, 11, 0.35), transparent);
+      color: #f4f4f6;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .telemetry-chip {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      line-height: 1.45;
+      color: rgba(244, 244, 246, 0.86);
+    }
+
+    .telemetry-badge {
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: rgba(249, 115, 22, 0.22);
+      border: 1px solid rgba(249, 115, 22, 0.45);
+      color: #fdba74;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      white-space: nowrap;
+    }
+
+    /* ==========================================================================
+       SECTION 02 — SELECTED ENGINEERING PROJECTS
+       ========================================================================== */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      transition: all 0.22s var(--ease-out);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      grid-column: span 6;
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      overflow: hidden;
+      transition: transform 0.35s var(--ease-out), border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+      cursor: pointer;
+    }
+
+    .project-card.featured {
+      grid-column: span 12;
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+    }
+
+    .project-card.wide-alt {
+      grid-column: span 12;
+      display: grid;
+      grid-template-columns: 0.95fr 1.15fr;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-border);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-card.hidden { display: none; }
+
+    .project-media {
+      position: relative;
+      overflow: hidden;
+      background: #0d0d11;
+      min-height: 290px;
+    }
+
+    .project-card.featured .project-media { min-height: 410px; }
+
+    .project-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s var(--ease-out);
+    }
+
+    .project-card:hover .project-media img { transform: scale(1.04); }
+
+    .project-cat-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(9, 9, 11, 0.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #f4f4f6;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+    }
+
+    .project-metric-pill {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(9, 9, 11, 0.84);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(249, 115, 22, 0.45);
+      color: #fdba74;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 500;
+    }
+
+    .project-body {
+      padding: clamp(22px, 3vw, 34px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .project-meta-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .project-desc {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+      line-height: 1.65;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
+    .project-cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .project-cta-row span.arrow {
+      transition: transform 0.25s var(--ease-out);
+    }
+
+    .project-card:hover .project-cta-row span.arrow {
+      transform: translate(4px, -2px);
+    }
+
+    /* Thermal SVG Schematic Stage */
+    .thermal-svg-stage {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      background: radial-gradient(circle at 20% 20%, #1a1c24 0%, #0b0c10 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* ==========================================================================
+       SECTION 04 — ABOUT ME & KINETIC METRICS
+       ========================================================================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: clamp(32px, 5vw, 64px);
+      align-items: start;
+    }
+
+    .about-prose p {
+      color: var(--text-secondary);
+      font-size: 1.03rem;
+      line-height: 1.78;
+      margin-bottom: 18px;
+    }
+
+    .about-prose p strong { color: var(--text-primary); font-weight: 600; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      padding: 24px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(2.1rem, 3.6vw, 3rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .stat-num .suffix { color: var(--accent); }
+
+    .stat-label {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .principle-card {
+      padding: 28px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .principle-num {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .principle-title {
+      font-family: var(--font-display);
+      font-size: 1.18rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .principle-text {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       SECTION 05 — TECHNICAL SKILLS
+       ========================================================================== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      padding: 30px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: border-color 0.25s;
+    }
+
+    .skill-card:hover { border-color: var(--accent-border); }
+
+    .skill-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .skill-index {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .skill-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.28rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .skill-card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    .domains-strip {
+      margin-top: 32px;
+      padding: 24px 28px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .domains-label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       SECTION 06 — EDUCATION & EXPERIENCE TIMELINE
+       ========================================================================== */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 28px;
+      padding: 28px 32px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent);
+      padding-top: 4px;
+    }
+
+    .timeline-role {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .timeline-org {
+      font-size: 0.94rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .timeline-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       SECTION 07 — CONTACT & TELEMETRY FOOTER
+       ========================================================================== */
+    .contact-shell {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-card);
+      padding: clamp(28px, 5vw, 56px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: clamp(32px, 5vw, 60px);
+    }
+
+    .contact-headline {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.8vw, 3rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .clock-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin: 18px 0 28px;
+    }
+
+    .contact-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .contact-card-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .contact-card-link:hover {
+      border-color: var(--accent-border);
+      transform: translateY(-2px);
+    }
+
+    .contact-card-link small {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .composer-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .field-label {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .field-input, .field-textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field-input:focus, .field-textarea:focus { border-color: var(--accent); }
+    .field-textarea { min-height: 112px; resize: vertical; }
+
+    .composer-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .site-footer {
+      padding: 28px 0 42px;
+      border-top: 1px solid var(--border);
+      margin-top: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       SECTION 03 — FULL-SCREEN CASE STUDY DRAWER & LIGHTBOX
+       ========================================================================== */
+    .case-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(5, 5, 7, 0.82);
+      backdrop-filter: blur(12px);
+      display: none;
+      justify-content: center;
+      overflow-y: auto;
+      padding: clamp(12px, 3vw, 36px);
+    }
+
+    .case-modal.open { display: flex; }
+
+    .case-sheet {
+      width: 100%;
+      max-width: 1080px;
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin: auto 0;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .case-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--bg-glass);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px clamp(20px, 3vw, 36px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .case-close-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .case-close-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .case-content {
+      padding: clamp(24px, 4vw, 48px);
+    }
+
+    .case-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.85rem, 3.6vw, 2.85rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+
+    .case-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 780px;
+      margin-bottom: 28px;
+    }
+
+    .case-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      margin-bottom: 32px;
+    }
+
+    /* Interactive Gallery inside Case Study */
+    .case-gallery {
+      margin-bottom: 36px;
+    }
+
+    .gallery-stage {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      background: #0b0c10;
+      aspect-ratio: 16 / 9.5;
+      cursor: zoom-in;
+    }
+
+    .gallery-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #0b0c10;
+    }
+
+    .gallery-caption-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .gallery-thumbs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-top: 12px;
+    }
+
+    .gallery-thumb {
+      flex: 0 0 112px;
+      height: 68px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      opacity: 0.62;
+      transition: all 0.2s;
+      background: #0b0c10;
+    }
+
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-thumb.active, .gallery-thumb:hover { opacity: 1; border-color: var(--accent); }
+
+    /* Structured Case Study Sections */
+    .case-sections-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .case-block {
+      padding: 24px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .case-block.full { grid-column: span 2; }
+
+    .case-block h4 {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .case-block p, .case-block li {
+      font-size: 0.93rem;
+      color: var(--text-secondary);
+      line-height: 1.68;
+    }
+
+    .case-block ul {
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .data-table-wrap {
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .data-table th, .data-table td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-table th {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .case-footer-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px clamp(24px, 4vw, 48px);
+      border-top: 1px solid var(--border);
+      background: var(--bg-elevated);
+      flex-wrap: wrap;
+    }
+
+    .case-next-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-card);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .case-next-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 450;
+      background: rgba(5, 5, 7, 0.94);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      gap: 14px;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 94vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .lightbox-caption {
+      color: #d4d4d8;
+      font-size: 0.9rem;
+      text-align: center;
+      max-width: 780px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 500;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: var(--text-primary);
+      color: var(--bg);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: all 0.25s var(--ease-out);
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid,
+      .contact-shell,
+      .project-card.featured,
+      .project-card.wide-alt {
+        grid-template-columns: 1fr;
+      }
+      .project-card { grid-column: span 12; }
+      .principles-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .case-meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .case-sections-grid { grid-template-columns: 1fr; }
+      .case-block.full { grid-column: span 1; }
+      .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links, .nav-cta { display: none; }
+      .mobile-toggle { display: grid; }
+      .hero-specs { grid-template-columns: 1fr; gap: 12px; }
+      .contact-links { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .pulse-dot { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">TR</span>
+        <span>Tashfiqur Rahman</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#journey" class="nav-link">Journey</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle color theme" title="Switch Light / Dark Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="themeIcon">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+        </button>
+        <a href="#contact" class="nav-cta">Get in Touch</a>
+        <button class="icon-btn mobile-toggle" id="mobileMenuBtn" aria-label="Open menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="7" x2="21" y2="7"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="17" x2="21" y2="17"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER -->
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <a href="#projects" class="mobile-nav-link">01 · Projects</a>
+    <a href="#about" class="mobile-nav-link">02 · About</a>
+    <a href="#skills" class="mobile-nav-link">03 · Skills</a>
+    <a href="#journey" class="mobile-nav-link">04 · Journey</a>
+    <a href="#contact" class="mobile-nav-link">05 · Contact</a>
+  </div>
+
+  <main id="top">
+    <!-- SECTION 01: HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal visible">
+          <div class="status-pill">
+            <span class="pulse-dot"></span>
+            <span>RUET Mechanical Engineering '24 · Team Crack Platoon</span>
+          </div>
+
+          <div class="hero-name-row">
+            <span class="hero-kicker">Tashfiqur Rahman</span>
+            <span class="hero-bn">তাসফিকুর রহমান</span>
+            <button type="button" class="cv-pill-btn" id="cvResumeBtn" aria-label="Open CV or Resume">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              <span>CV / Resume ↗</span>
+            </button>
+          </div>
+
+          <h1 class="hero-title">
+            Designing structures &amp; flows built to <span class="accent-word">perform.</span>
+          </h1>
+
+          <p class="hero-lead">
+            Mechanical Engineering undergraduate at Rajshahi University of Engineering &amp; Technology (RUET), SOLIDWORKS designer, and developing ANSYS FEA/CFD simulator. I bridge first-principles physics with CAD and numerical validation—from Formula Student spaceframes to airfoil aerodynamics.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">
+              <span>View My Projects</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+            </a>
+            <a href="#about" class="btn-secondary">About Me</a>
+            <a href="#contact" class="btn-secondary">Contact</a>
+          </div>
+
+          <div class="hero-specs">
+            <div>
+              <div class="spec-item-label">Primary Stack</div>
+              <div class="spec-item-val">SOLIDWORKS · ANSYS</div>
+            </div>
+            <div>
+              <div class="spec-item-label">Core Focus</div>
+              <div class="spec-item-val">CAD · FEA · CFD · Thermal</div>
+            </div>
+            <div>
+              <div class="spec-item-label">Base</div>
+              <div class="spec-item-val">Rajshahi, Bangladesh</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal visible">
+          <div class="portrait-frame">
+            <img src="assets/portrait.jpg" alt="Portrait of Tashfiqur Rahman, Mechanical Engineering undergraduate at RUET" />
+            <div class="portrait-overlay">
+              <div class="telemetry-chip">
+                <div>ROLL // 2402077 · ME RUET</div>
+                <div>LOC // 24.3745° N, 88.6042° E</div>
+              </div>
+              <span class="telemetry-badge">CAE / CAD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 02: SELECTED ENGINEERING PROJECTS -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-eyebrow">01 / Selected Engineering Projects</div>
+            <h2 class="section-title">Real simulations, parametric CAD &amp; validated analysis.</h2>
+          </div>
+          <div class="filter-bar" role="tablist" aria-label="Filter projects by discipline">
+            <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All (3)</button>
+            <button class="filter-btn" data-filter="fea" role="tab" aria-selected="false">FEA &amp; Structural</button>
+            <button class="filter-btn" data-filter="cfd" role="tab" aria-selected="false">CFD &amp; Thermal</button>
+            <button class="filter-btn" data-filter="cad" role="tab" aria-selected="false">CAD &amp; Design</button>
+          </div>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+          <!-- Rendered dynamically from PORTFOLIO_DATA -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04: ABOUT ME -->
+    <section id="about">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-eyebrow">02 / About Me</div>
+            <h2 class="section-title">Turning mechanical intuition into verifiable engineering.</h2>
+          </div>
+          <p class="section-sub">
+            From Chattogram to RUET in Rajshahi — building a foundation in structural mechanics, fluid dynamics, and manufacturable design.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-prose reveal">
+            <p>
+              I'm <strong>Tashfiqur Rahman</strong> (Tashfiq), a Mechanical Engineering undergraduate (24 Series, Roll <code>2402077</code>) at <strong>Rajshahi University of Engineering &amp; Technology (RUET)</strong> and an active contributor to <strong>Team Crack Platoon</strong>, RUET's Formula Student engineering initiative.
+            </p>
+            <p>
+              What draws me to mechanical engineering is the honesty of physical laws: a chassis either resists torsion without excess mass, an airfoil either sustains attached flow or stalls, and a room either rejects heat or overheats its machinery. I work at the intersection of <strong>parametric 3D CAD in SOLIDWORKS</strong> and <strong>numerical simulation in ANSYS Mechanical and ANSYS Fluent</strong> to test ideas before metal is ever cut.
+            </p>
+            <p>
+              Whether benchmarking European Formula Student EVs for a 180° hairpin maneuver, refining a biased C-grid boundary layer around a NACA 0012 section, or modeling mated IC engine sub-assemblies, my goal is to grow into a high-impact CAE and mechanical design engineer capable of leading complex mobility, aerospace, and energy systems from concept to validation.
+            </p>
+          </div>
+
+          <div class="stats-grid reveal">
+            <div class="stat-card">
+              <div class="stat-num"><span class="counter" data-target="3">0</span></div>
+              <div class="stat-label">Core CAD, FEA &amp; CFD engineering case studies</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num"><span class="counter" data-target="6">0</span></div>
+              <div class="stat-label">Parametric IC engine components &amp; mated SOLIDWORKS assemblies</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num"><span class="counter" data-target="960">0</span><span class="suffix">.6</span></div>
+              <div class="stat-label">Baseline Docol R8 torsional rigidity evaluated (N·m/deg)</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num"><span class="counter" data-target="3">0</span></div>
+              <div class="stat-label">Formula Student EV chassis benchmarked (RWTH, NTNU, TU Dortmund)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="principles-grid reveal">
+          <div class="principle-card">
+            <div class="principle-num">01 / MINDSET</div>
+            <h3 class="principle-title">First-Principles Clarity</h3>
+            <p class="principle-text">Before opening a solver, I establish the governing physics—load paths, friction circles, boundary-layer gradients, and mass-transfer limits—so every simulation answers a clear question.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-num">02 / RIGOR</div>
+            <h3 class="principle-title">Honest Validation</h3>
+            <p class="principle-text">Simulation is only as trustworthy as its topology, mesh quality, and boundary conditions. I document solver limitations explicitly rather than hiding behind colorful contours.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-num">03 / PRACTICALITY</div>
+            <h3 class="principle-title">Manufacturable Design</h3>
+            <p class="principle-text">Great engineering respects real fabrication constraints—like choosing a triangulated Docol R8 tubular spaceframe over a high-risk composite monocoque when tooling and repairability matter.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 05: TECHNICAL SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-eyebrow">03 / Technical Capabilities</div>
+            <h2 class="section-title">Tools, solvers &amp; engineering disciplines.</h2>
+          </div>
+          <p class="section-sub">
+            Structured around the software and analytical workflows actively demonstrated across my projects.
+          </p>
+        </div>
+
+        <div class="skills-grid reveal">
+          <div class="skill-card">
+            <div class="skill-card-head">
+              <span class="skill-index">01 // CAD &amp; MECHANICAL DESIGN</span>
+            </div>
+            <h3>SOLIDWORKS 2026 Modeling &amp; Assemblies</h3>
+            <p>Parametric part design, multi-body assemblies with mechanical mates, 3D-sketch tubular weldments, lofting, shelling, mirroring, and pattern-driven feature trees.</p>
+            <div class="tag-list">
+              <span class="tag">SOLIDWORKS Design Premium 2026</span>
+              <span class="tag">3D Weldments</span>
+              <span class="tag">Multi-Part Assemblies</span>
+              <span class="tag">Powertrain Components</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-card-head">
+              <span class="skill-index">02 // FEA &amp; STRUCTURAL ANALYSIS</span>
+            </div>
+            <h3>ANSYS Mechanical &amp; SpaceClaim</h3>
+            <p>1D beam &amp; spaceframe geometry preparation, torsional rigidity calculation, quasi-static structural screening, material comparisons (Docol R8 vs. AISI 1020), and deformation/stress diagnostics.</p>
+            <div class="tag-list">
+              <span class="tag">ANSYS Mechanical 2026 R1</span>
+              <span class="tag">ANSYS SpaceClaim</span>
+              <span class="tag">Static Structural FEA</span>
+              <span class="tag">Beam Tool &amp; Stress Analysis</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-card-head">
+              <span class="skill-index">03 // CFD &amp; AERODYNAMICS</span>
+            </div>
+            <h3>ANSYS Fluent &amp; CFD-Post</h3>
+            <p>External aerodynamic simulation of airfoil sections, biased C-grid structured mesh generation, velocity-inlet &amp; turbulence setup, pressure/velocity/TKE contour visualization, and streamlines.</p>
+            <div class="tag-list">
+              <span class="tag">ANSYS Fluent 2026 R1</span>
+              <span class="tag">ANSYS CFD-Post</span>
+              <span class="tag">Biased C-Grid Meshing</span>
+              <span class="tag">Airfoil Aerodynamics</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-card-head">
+              <span class="skill-index">04 // THERMAL &amp; VEHICLE DYNAMICS</span>
+            </div>
+            <h3>Analytical Engineering &amp; Documentation</h3>
+            <p>Convective heat transfer &amp; industrial air-renewal modeling, Formula Student cornering kinematics and load-transfer benchmarking, and structured technical engineering reports.</p>
+            <div class="tag-list">
+              <span class="tag">Thermal Analysis</span>
+              <span class="tag">Fluid Mechanics</span>
+              <span class="tag">Vehicle Dynamics</span>
+              <span class="tag">Technical Reporting</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card reveal" style="margin-top:24px; border-color:var(--accent-border); background:linear-gradient(135deg, var(--bg-card) 0%, var(--accent-soft) 100%);">
+          <div class="skill-card-head" style="flex-wrap:wrap; gap:10px;">
+            <span class="skill-index">RESEARCH INTERESTS &amp; COLLABORATION</span>
+            <span class="telemetry-badge" style="color:var(--accent); border-color:var(--accent-border); background:var(--accent-soft);">Open to Collaborate Under Experts</span>
+          </div>
+          <h3>Active Research Focus &amp; Mentored Engineering Work</h3>
+          <p style="max-width:780px;">
+            My core research interests center on <strong>CFD Analysis</strong>, <strong>Computer-Aided Engineering (CAE)</strong>, <strong>Structural Analysis</strong>, and <strong>Thermal Analysis</strong>. I am actively open to working and collaborating under professors, researchers, and experienced engineering professionals on simulation-driven studies, academic papers, and real-world mechanical design projects.
+          </p>
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+            <div class="tag-list" style="margin-top:0;">
+              <span class="tag" style="border-color:var(--accent-border); color:var(--text-primary);">CFD Analysis</span>
+              <span class="tag" style="border-color:var(--accent-border); color:var(--text-primary);">CAE</span>
+              <span class="tag" style="border-color:var(--accent-border); color:var(--text-primary);">Structural Analysis</span>
+              <span class="tag" style="border-color:var(--accent-border); color:var(--text-primary);">Thermal Analysis</span>
+              <span class="tag">Formula Student Chassis</span>
+              <span class="tag">Internal Combustion Powertrains</span>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a href="https://www.researchgate.net/profile/Tashfiqur-Rahman-2" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding:9px 16px; font-size:0.84rem;">ResearchGate ↗</a>
+              <a href="#contact" class="btn-primary" style="padding:9px 18px; font-size:0.84rem;">Collaborate With Me →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 06: EDUCATION & EXPERIENCE -->
+    <section id="journey">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-eyebrow">04 / Education &amp; Experience</div>
+            <h2 class="section-title">Academic foundation &amp; engineering teams.</h2>
+          </div>
+        </div>
+
+        <div class="timeline reveal">
+          <div class="timeline-item">
+            <div class="timeline-date">2024 SERIES — PRESENT</div>
+            <div>
+              <div class="timeline-role">B.Sc. in Mechanical Engineering</div>
+              <div class="timeline-org">Rajshahi University of Engineering &amp; Technology (RUET) · Roll 2402077</div>
+              <p class="timeline-desc">
+                Pursuing undergraduate studies in Mechanical Engineering (যন্ত্রকৌশল বিভাগ) with dedicated focus on Computer-Aided Design, Finite Element Analysis, Computational Fluid Dynamics, and thermal-fluid systems.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">2026 — PRESENT</div>
+            <div>
+              <div class="timeline-role">Chassis &amp; Engineering Analyst</div>
+              <div class="timeline-org">Team Crack Platoon — RUET Formula Student</div>
+              <p class="timeline-desc">
+                Conducted a 22-page track dynamics, steering mechanics, and Formula Student chassis optimization study benchmarking RWTH Aachen (eax05), NTNU (AQUILA), and TU Dortmund (FS226), paired with ANSYS Mechanical torsional and frontal FEA of the baseline spaceframe delivering a validated roadmap for a triangulated Docol R8 tubular spaceframe.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">ONGOING</div>
+            <div>
+              <div class="timeline-role">Independent CAD &amp; Simulation Practice</div>
+              <div class="timeline-org">SOLIDWORKS 2026 &amp; ANSYS Workbench</div>
+              <p class="timeline-desc">
+                Building a verified technical portfolio of multi-component IC engine assemblies and external airfoil CFD models to sharpen mesh convergence, assembly constraints, and post-processing workflows.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 07: CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-shell reveal">
+          <div>
+            <div class="section-eyebrow">05 / Contact</div>
+            <h2 class="contact-headline">Have an engineering challenge or research opportunity? Let's talk.</h2>
+            <p style="color:var(--text-secondary); font-size:0.96rem;">
+              Actively open to working and collaborating under faculty, researchers, and industry experts in CFD Analysis, CAE, Structural Analysis, and Thermal Analysis—as well as mechanical design projects and internships.
+            </p>
+
+            <div class="clock-bar">
+              <span class="pulse-dot"></span>
+              <span>Rajshahi, Bangladesh (UTC+6) · <strong id="liveClock" style="color:var(--text-primary);">--:--:--</strong></span>
+            </div>
+
+            <div class="contact-links">
+              <a href="mailto:tashfiqdev@gmail.com" class="contact-card-link">
+                <div>
+                  <small>EMAIL</small>
+                  <span>tashfiqdev@gmail.com</span>
+                </div>
+                <span>↗</span>
+              </a>
+              <button type="button" class="contact-card-link" id="copyEmailBtn" style="text-align:left;">
+                <div>
+                  <small>QUICK ACTION</small>
+                  <span>Copy Email Address</span>
+                </div>
+                <span>⧉</span>
+              </button>
+              <a href="tel:+8801577221636" class="contact-card-link">
+                <div>
+                  <small>PHONE</small>
+                  <span>+880 1577-221636</span>
+                </div>
+                <span>↗</span>
+              </a>
+              <a href="https://www.linkedin.com/in/tashfiqdevs" target="_blank" rel="noopener noreferrer" class="contact-card-link">
+                <div>
+                  <small>LINKEDIN</small>
+                  <span>/in/tashfiqdevs</span>
+                </div>
+                <span>↗</span>
+              </a>
+              <a href="https://www.researchgate.net/profile/Tashfiqur-Rahman-2" target="_blank" rel="noopener noreferrer" class="contact-card-link">
+                <div>
+                  <small>RESEARCHGATE</small>
+                  <span>Tashfiqur Rahman</span>
+                </div>
+                <span>↗</span>
+              </a>
+              <a href="https://www.facebook.com/ttashfiq" target="_blank" rel="noopener noreferrer" class="contact-card-link">
+                <div>
+                  <small>FACEBOOK</small>
+                  <span>/ttashfiq</span>
+                </div>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          <form class="composer-form" id="mailtoComposer">
+            <div>
+              <label class="field-label" for="senderName">Your Name</label>
+              <input class="field-input" id="senderName" type="text" placeholder="Prof. / Engineer / Recruiter Name" required />
+            </div>
+            <div>
+              <label class="field-label" for="msgSubject">Subject</label>
+              <input class="field-input" id="msgSubject" type="text" placeholder="Research collaboration / Internship / Project inquiry" required />
+            </div>
+            <div>
+              <label class="field-label" for="msgBody">Message</label>
+              <textarea class="field-textarea" id="msgBody" placeholder="Tell me about the project, research topic, or role..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="justify-content:center;">
+              <span>Compose in Email Client</span>
+              <span>↗</span>
+            </button>
+            <p class="composer-note">
+              Opens your default email client pre-addressed to <strong>tashfiqdev@gmail.com</strong> — no third-party form tracker.
+            </p>
+          </form>
+        </div>
+
+        <footer class="site-footer">
+          <div>© 2026 Tashfiqur Rahman · Mechanical Engineering, RUET</div>
+          <div>Chattogram → Rajshahi, Bangladesh · Built with precision HTML/CSS/JS</div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <!-- SECTION 03: FULL-SCREEN CASE STUDY MODAL -->
+  <div class="case-modal" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="caseTitle">
+    <div class="case-sheet">
+      <div class="case-topbar">
+        <span class="mono" style="font-size:0.78rem; color:var(--text-muted);" id="caseTopLabel">CASE STUDY // 01</span>
+        <button class="case-close-btn" id="closeCaseBtn" aria-label="Close case study">
+          <span>Close</span>
+          <span>ESC ✕</span>
+        </button>
+      </div>
+      <div class="case-content" id="caseContent">
+        <!-- Populated dynamically -->
+      </div>
+      <div class="case-footer-nav">
+        <button class="case-next-btn" id="prevProjectBtn">← Previous Project</button>
+        <button class="case-next-btn" id="nextProjectBtn">Next Project →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Zoomed engineering image">
+    <button class="case-close-btn" id="closeLightboxBtn" style="position:fixed; top:20px; right:24px;">Close ✕</button>
+    <img id="lightboxImg" src="" alt="" />
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* ==========================================================================
+       CENTRALIZED PORTFOLIO DATA (Easy to edit — all verified authentic details)
+       ========================================================================== */
+    const PORTFOLIO_DATA = {
+      email: "tashfiqdev@gmail.com",
+      // Paste your CV/Resume URL or local file path below (e.g., "assets/Tashfiq_CV.pdf" or a Google Drive link)
+      cvUrl: "",
+      projects: [
+        {
+          id: "fsae-chassis",
+          num: "01",
+          category: "fea",
+          categoryLabel: "FEA & Structural",
+          year: "2026",
+          layoutClass: "featured",
+          title: "Formula Student Tubular Spaceframe Chassis — CAD, FEA & Vehicle Dynamics",
+          shortDesc: "Structural FEA, SOLIDWORKS 3D weldment modeling, and 180° hairpin vehicle-dynamics benchmarking for Team Crack Platoon's Formula Student electric vehicle.",
+          heroMetric: "960.61 N·m/deg Baseline",
+          role: "Chassis & Vehicle Dynamics Analyst",
+          affiliation: "Team Crack Platoon (RUET)",
+          tools: ["SOLIDWORKS 2026", "ANSYS Mechanical 2026 R1", "ANSYS SpaceClaim", "Docol R8 / AISI 1020"],
+          coverImage: "assets/p1_docol_stress.jpg",
+          gallery: [
+            {
+              src: "assets/p1_docol_stress.jpg",
+              caption: "ANSYS Mechanical 2026 R1: Docol R8 tubular spaceframe direct stress distribution under frontal quasi-static loading (Range: -201.85 MPa to +97.79 MPa)."
+            },
+            {
+              src: "assets/p1_docol_deform.jpg",
+              caption: "ANSYS Mechanical: Frontal structural total deformation contour revealing 224.51 mm peak displacement due to untriangulated front bulkhead bays."
+            },
+            {
+              src: "assets/p1_docol_setup.jpg",
+              caption: "Quasi-static frontal boundary condition setup: rear fixed supports with 100 kN (1.0 × 10⁵ N) longitudinal load applied at the front bulkhead."
+            },
+            {
+              src: "assets/p1_mild_deform.jpg",
+              caption: "Torsional rigidity comparison (Mild Steel AISI 1020): Y-axis directional deformation (±1.16 mm) under equal and opposite 1000 N vertical front loads."
+            },
+            {
+              src: "assets/p1_mild_stress.jpg",
+              caption: "Mild steel torsional direct stress plot confirming low peak stresses relative to yield—proving the baseline frame is stiffness-limited rather than strength-limited."
+            },
+            {
+              src: "assets/p1_cad_frame.jpg",
+              caption: "SOLIDWORKS 2026 parametric 3D-sketch tubular weldment model (26.9 × 2 mm pipe sections) of the Formula Student spaceframe."
+            },
+            {
+              src: "assets/p1_cad_closeup.jpg",
+              caption: "Detailed view of SOLIDWORKS tubular node intersections, cockpit roll hoop, and front bulkhead trim/extend weldment joints."
+            }
+          ],
+          overview: "A comprehensive 22-page structural and vehicle-dynamics investigation for Team Crack Platoon (RUET) evaluating a Docol R8 tubular spaceframe as a manufacturable alternative to carbon-fiber monocoques in Bangladesh, optimized for tight 180° Formula Student hairpin maneuvers.",
+          problem: "The baseline Crack Platoon spaceframe weighed 38.505 kg with a torsional stiffness of 960.61 N·m/deg, and experienced excessive deformation (224.51 mm) and peak combined stress (3.6995 GPa) under a 100 kN quasi-static frontal load due to missing triangulation and discontinuous load paths.",
+          objectives: [
+            "Benchmark top Formula Student EV chassis architectures (RWTH Aachen eax05, NTNU AQUILA, TU Dortmund FS226) on wheelbase, track width, mass, and load transfer.",
+            "Quantify torsional rigidity and stress behavior of the baseline spaceframe in ANSYS Mechanical for both Docol R8 and AISI 1020 Mild Steel.",
+            "Identify structural weak zones under frontal loading and propose a manufacturable, triangulated Docol R8 architecture."
+          ],
+          concept: "Rather than chasing a single metric in isolation, the proposed architecture combines a compact wheelbase for hairpin rotation, sufficient track width to exploit tire load sensitivity, near-neutral ~50/50 static weight distribution, inboard pushrod suspension, and triangulated axial load paths.",
+          process: "Started from first-principles vehicle dynamics (comparing rail wheelset guidance vs. rubber tire slip-angle cornering and friction circles), built a 3-car EV benchmark matrix, prepared the 1D tubular line-body model in ANSYS SpaceClaim and SOLIDWORKS weldments, and ran torsional and frontal FEA cases.",
+          implementation: "Rear suspension pickups were constrained while equal and opposite 1000 N vertical forces (separation d = 0.349 m, torque T = 349 N·m) induced twist. A separate 100 kN longitudinal screening load evaluated front bulkhead load paths.",
+          contribution: "Authored the complete 22-page engineering report, created the SOLIDWORKS 26.9×2 mm tubular weldment CAD model, executed all ANSYS SpaceClaim/Mechanical torsional and frontal FEA runs, and formulated the variable-wall-thickness redesign plan.",
+          challenges: "Two upper rear chassis braces in SpaceClaim were physically close to the roll hoop without sharing finite-element topology. Resolved by establishing solver-level mechanical node connections via controlled connection tolerance—reinforcing that physical proximity does not equal shared FE topology.",
+          validationTable: {
+            headers: ["Load Case / Material", "Torsional Rigidity / Load", "Peak Deformation", "Peak Stress", "Key Finding"],
+            rows: [
+              ["Docol R8 (Torsion, 349 N·m)", "960.61 N·m/deg (55,039 N·m/rad)", "Δy = 2.2130 mm", "σ_max = 33.04 MPa", "Stiffness-limited by geometry"],
+              ["Mild Steel AISI 1020 (Torsion)", "916.20 N·m/deg (52,494 N·m/rad)", "Δy = 2.3203 mm", "σ_max = 32.99 MPa", "Material strength ≠ stiffness"],
+              ["Docol R8 (Frontal Screening)", "100 kN Longitudinal", "224.51 mm", "3.6995 GPa combined", "Needs front-bay triangulation"]
+            ]
+          },
+          outcome: "Established a concrete redesign roadmap for Team Crack Platoon: a fully triangulated Docol R8 spaceframe using variable wall thickness (2.0–2.4 mm primary safety tubes, 1.0–1.2 mm secondary diagonals) and inboard pushrod suspension.",
+          lessons: "Higher-strength steel barely increases torsional stiffness because stiffness scales with shear modulus and geometry (GJ/L). True stiffness-per-kilogram comes from converting bending-dominated rectangular bays into axial-load triangles, and quasi-static FEA must be clearly distinguished from dynamic crash simulation."
+        },
+        {
+          id: "naca-cfd",
+          num: "02",
+          category: "cfd",
+          categoryLabel: "CFD & Thermal",
+          year: "2026",
+          layoutClass: "",
+          title: "NACA 0012 Airfoil External Aerodynamics — Biased C-Grid CFD",
+          shortDesc: "2D external aerodynamic flow simulation of a symmetric NACA 0012 airfoil at 10° angle of attack in ANSYS Fluent 2026 R1 with structured boundary-layer mesh refinement.",
+          heroMetric: "51.45 m/s @ 10° AoA",
+          role: "CFD Simulation Engineer",
+          affiliation: "Independent Aerodynamics Study",
+          tools: ["ANSYS Fluent 2026 R1", "ANSYS Meshing", "ANSYS CFD-Post"],
+          coverImage: "assets/p2_velocity_vec.jpg",
+          gallery: [
+            {
+              src: "assets/p2_velocity_vec.jpg",
+              caption: "ANSYS CFD-Post 2026 R1: High-resolution velocity vector field illustrating stagnation at the leading edge, rapid upper-surface acceleration, and wake development."
+            },
+            {
+              src: "assets/p2_pressure_contour.jpg",
+              caption: "Static pressure contour around the NACA 0012 section showing the high-pressure leading-edge stagnation zone and strong suction peak along the upper surface."
+            },
+            {
+              src: "assets/p2_mesh_closeup.jpg",
+              caption: "Close-up of the structured biased mesh concentrated along the NACA 0012 airfoil surface to capture steep boundary-layer velocity gradients."
+            },
+            {
+              src: "assets/p2_mesh_domain.jpg",
+              caption: "Full C-type computational farfield domain showing smooth cell-size transition from the near-wall region to the outer boundaries."
+            },
+            {
+              src: "assets/p2_fluent_setup.jpg",
+              caption: "ANSYS Fluent 2026 R1 solver workspace showing named boundary zones (farfield1 velocity-inlet, farfield2 pressure-outlet, upper/lower airfoil walls)."
+            }
+          ],
+          overview: "A 2D Computational Fluid Dynamics study investigating subsonic external airflow over a symmetric NACA 0012 airfoil using a structured, biased C-grid computational domain in ANSYS Fluent 2026 R1 and ANSYS CFD-Post.",
+          problem: "Accurately resolving lift-generating pressure differentials and boundary-layer velocity gradients around an airfoil at nonzero angle of attack requires high near-wall mesh orthogonality without blowing up total cell count across the farfield.",
+          objectives: [
+            "Construct a smooth, biased C-grid domain around the NACA 0012 profile with tight near-wall clustering.",
+            "Configure component-based velocity inlet boundary conditions corresponding to a 10° angle of attack.",
+            "Visualize pressure contours, velocity vectors, turbulent kinetic energy (TKE), and streamlines in CFD-Post."
+          ],
+          concept: "A C-grid topology wraps smoothly around the curved leading edge while aligning orthogonal hexahedral/quadrilateral cells along the wake centerline, minimizing numerical diffusion.",
+          process: "Generated the biased C-grid mesh around the NACA 0012 geometry, assigned boundary zones (farfield1 velocity inlet, farfield2 pressure outlet, upper and lower wall surfaces), initialized and iterated the Fluent solver, and exported multi-field post-processing visuals.",
+          implementation: "Applied velocity-inlet components Vx = 50.668 m/s and Vy = 8.934 m/s (resultant freestream ≈ 51.45 m/s at 10° angle of attack), gauge pressure 0 Pa, 5% turbulent intensity, and a turbulent viscosity ratio of 10.",
+          contribution: "Independently executed the complete CFD pipeline—domain meshing, boundary condition definition, solver convergence monitoring, and CFD-Post contour/vector visualization.",
+          challenges: "Balancing boundary-layer resolution near the sharp trailing edge with smooth cell growth ratios into the farfield. Solved via edge biasing along the C-grid blocks so cells cluster densely at the wall and expand gradually outward.",
+          validationTable: {
+            headers: ["Parameter", "Configured Value", "Physical Meaning"],
+            rows: [
+              ["Inlet X-Velocity (Vx)", "50.668 m/s", "Streamwise velocity component"],
+              ["Inlet Y-Velocity (Vy)", "8.934 m/s", "Cross-stream component (~10° angle of attack)"],
+              ["Resultant Freestream", "51.45 m/s", "Subsonic incompressible external flow regime"],
+              ["Turbulence Specification", "5% Intensity / Ratio 10", "Freestream turbulence inlet condition"]
+            ]
+          },
+          outcome: "Produced clean, physically consistent static pressure and velocity-vector fields clearly capturing the leading-edge stagnation point, upper-surface suction peak, and asymmetric wake deflection.",
+          lessons: "Mesh topology and near-wall biasing govern CFD solution clarity far more than brute-force uniform refinement; structured C-grids yield crisp vector fields and stable convergence."
+        },
+        {
+          id: "ic-engine-cad",
+          num: "03",
+          category: "cad",
+          categoryLabel: "CAD & Design",
+          year: "2026",
+          layoutClass: "",
+          title: "Multi-Cylinder Internal Combustion Engine — Parametric SOLIDWORKS Assemblies",
+          shortDesc: "Six precision-modeled IC engine components and mated sub-assemblies built in SOLIDWORKS Design Premium 2026—from V-block and cylinder head to valvetrain and exhaust.",
+          heroMetric: "6 SOLIDWORKS Assemblies",
+          role: "Mechanical CAD Designer",
+          affiliation: "Mechanical Design Portfolio",
+          tools: ["SOLIDWORKS 2026 SP0.0", "Parametric Feature Trees", "Assembly Mates", "Loft & Shell"],
+          coverImage: "assets/p3_engine_block.jpg",
+          gallery: [
+            {
+              src: "assets/p3_engine_block.jpg",
+              caption: "V-Configuration Engine Block: Modeled with mirrored cylinder banks, structural ribs, circular bore patterns, and filleted transitions."
+            },
+            {
+              src: "assets/p3_cyl_head.jpg",
+              caption: "4-Chamber Cylinder Head: Combustion deck featuring cut-lofted ports, valve pockets, and 1/4-20 tapped fastener patterns."
+            },
+            {
+              src: "assets/p3_piston_rod.jpg",
+              caption: "Piston & Connecting Rod Assembly: Mated multi-part sub-assembly with piston crown ring grooves, gudgeon pin, connecting rod, and rod cap."
+            },
+            {
+              src: "assets/p3_rocker_arm.jpg",
+              caption: "Rocker Arm Valvetrain Assembly: Articulated rocker arm body mated with dual roller wheels, pivot pins, and hex screw fastener."
+            },
+            {
+              src: "assets/p3_air_filter.jpg",
+              caption: "Conical Air Intake Filter: Lofted, shelled, and circular-patterned pleated filtration housing."
+            },
+            {
+              src: "assets/p3_exhaust.jpg",
+              caption: "Mirrored Exhaust Manifold Header: Swept multi-runner exhaust collector mirrored cleanly for symmetric bank packaging."
+            }
+          ],
+          overview: "A cohesive mechanical design showcase of six internal combustion engine components and kinematic sub-assemblies built natively in SOLIDWORKS Design Premium 2026 SP0.0.",
+          problem: "Engine hardware combines tightly constrained reciprocating kinematics (piston-pin-rod), articulated valvetrain contacts (roller rocker arms), and complex cast/swept geometries (V-block, combustion chambers, exhaust headers) that demand clean parametric feature trees.",
+          objectives: [
+            "Model six distinct powertrain components with clean, editable feature histories.",
+            "Build multi-part mated assemblies for the piston/connecting-rod and roller rocker-arm mechanisms.",
+            "Apply advanced SOLIDWORKS tools including Cut-Lofts, Circular/Linear Patterns, Mirroring, Ribbing, and Shelling."
+          ],
+          concept: "Organize each component around principal reference planes (Front, Top, Right) so symmetric banks, fastener arrays, and mated sub-assemblies update cleanly without rebuild errors.",
+          process: "Developed each component from base revolves/extrusions through internal cutouts, tapped hole wizards (1/4-20), lofted port transitions, and mechanical assembly mates.",
+          implementation: "Engineered 6 standalone parts/assemblies: V-Block, 4-chamber Cylinder Head, Piston-Rod Assembly, Roller Rocker Arm Assembly, Conical Air Filter, and Mirrored Exhaust Manifold.",
+          contribution: "100% individual CAD modeling, feature-tree organization, and assembly mating in SOLIDWORKS 2026.",
+          challenges: "Maintaining smooth tangency and concentricity across multi-part moving assemblies (piston pin & roller rocker wheels) and swept exhaust runners. Resolved via disciplined reference-plane hierarchy and explicit concentric/coincident mates.",
+          validationTable: {
+            headers: ["Component / Sub-Assembly", "Key SOLIDWORKS Features Used", "Design Role"],
+            rows: [
+              ["V-Configuration Engine Block", "Mirror, Ribs, CirPattern, Fillets", "Primary structural housing & cylinder banks"],
+              ["Cylinder Head", "Cut-Loft, 1/4-20 Tapped Holes, Linear Patterns", "Combustion chamber sealing & valve seating"],
+              ["Piston & Connecting Rod", "Revolve, Cut-Revolve, Multi-Body Mates", "Reciprocating-to-rotary load transfer"],
+              ["Rocker Arm Assembly", "Chamfer, Dual Roller Wheels, Pivot Pins, Hex Screw", "Valvetrain actuation mechanism"],
+              ["Air Filter & Exhaust Header", "Loft, Shell, Swept Runners, Body Mirror", "Intake filtration & symmetric exhaust routing"]
+            ]
+          },
+          outcome: "Completed six clean, interference-checked SOLIDWORKS 2026 models ready for kinematic motion studies, rendering, or downstream thermal/structural FEA.",
+          lessons: "Clean plane strategy and ordered feature trees (base geometry → cutouts → patterns → fillets last) make complex mechanical assemblies effortless to modify."
+        }
+      ]
+    };
+
+    /* ==========================================================================
+       STATE & DOM RENDERING
+       ========================================================================== */
+    let currentFilter = "all";
+    let activeProjectIdx = 0;
+
+    const projectsGrid = document.getElementById("projectsGrid");
+    const caseModal = document.getElementById("caseModal");
+    const caseContent = document.getElementById("caseContent");
+    const caseTopLabel = document.getElementById("caseTopLabel");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxCaption = document.getElementById("lightboxCaption");
+
+    function renderProjects() {
+      projectsGrid.innerHTML = "";
+      PORTFOLIO_DATA.projects.forEach((p, idx) => {
+        const matches = currentFilter === "all" || p.category === currentFilter;
+        const card = document.createElement("article");
+        card.className = `project-card ${p.layoutClass} ${matches ? "" : "hidden"}`;
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `View case study for ${p.title}`);
+
+        const mediaHtml = `<div class="project-media">
+               <img src="${p.coverImage}" alt="${p.title}" loading="lazy" />
+               <span class="project-cat-badge">${p.categoryLabel}</span>
+               <span class="project-metric-pill">${p.heroMetric}</span>
+             </div>`;
+
+        card.innerHTML = `
+          ${mediaHtml}
+          <div class="project-body">
+            <div>
+              <div class="project-meta-top">
+                <span>PROJECT // ${p.num}</span>
+                <span>${p.year} · ${p.affiliation}</span>
+              </div>
+              <h3 class="project-title">${p.title}</h3>
+              <p class="project-desc">${p.shortDesc}</p>
+              <div class="tag-list">
+                ${p.tools.map(t => `<span class="tag">${t}</span>`).join("")}
+              </div>
+            </div>
+            <div class="project-cta-row">
+              <span>Explore Full Case Study</span>
+              <span class="arrow">↗</span>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener("click", () => openCaseStudy(idx));
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openCaseStudy(idx);
+          }
+        });
+
+        projectsGrid.appendChild(card);
+      });
+    }
+
+    function openCaseStudy(idx) {
+      activeProjectIdx = idx;
+      const p = PORTFOLIO_DATA.projects[idx];
+      caseTopLabel.textContent = `CASE STUDY // ${p.num} — ${p.categoryLabel.toUpperCase()}`;
+
+      let galleryHtml = "";
+      if (p.gallery && p.gallery.length > 0) {
+        galleryHtml = `
+          <div class="case-gallery">
+            <div class="gallery-stage" id="galleryStage" title="Click to zoom">
+              <img id="activeGalleryImg" src="${p.gallery[0].src}" alt="${p.gallery[0].caption}" />
+            </div>
+            <div class="gallery-caption-bar">
+              <span id="activeGalleryCaption">${p.gallery[0].caption}</span>
+              <span class="mono" style="white-space:nowrap; font-size:0.74rem; color:var(--accent);" id="galleryCounter">1 / ${p.gallery.length} · Click to Zoom</span>
+            </div>
+            <div class="gallery-thumbs" id="galleryThumbs">
+              ${p.gallery.map((img, i) => `
+                <button type="button" class="gallery-thumb ${i === 0 ? "active" : ""}" data-img-idx="${i}" aria-label="Show image ${i + 1}">
+                  <img src="${img.src}" alt="" />
+                </button>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      const tableHtml = p.validationTable ? `
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>${p.validationTable.headers.map(h => `<th>${h}</th>`).join("")}</tr>
+            </thead>
+            <tbody>
+              ${p.validationTable.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+      ` : "";
+
+      caseContent.innerHTML = `
+        <h2 class="case-title" id="caseTitle">${p.title}</h2>
+        <p class="case-subtitle">${p.overview}</p>
+
+        <div class="case-meta-grid">
+          <div>
+            <div class="spec-item-label">Year</div>
+            <div class="spec-item-val">${p.year}</div>
+          </div>
+          <div>
+            <div class="spec-item-label">Role</div>
+            <div class="spec-item-val">${p.role}</div>
+          </div>
+          <div>
+            <div class="spec-item-label">Context</div>
+            <div class="spec-item-val">${p.affiliation}</div>
+          </div>
+          <div>
+            <div class="spec-item-label">Headline Metric</div>
+            <div class="spec-item-val" style="color:var(--accent);">${p.heroMetric}</div>
+          </div>
+        </div>
+
+        ${galleryHtml}
+
+        <div class="case-sections-grid">
+          <div class="case-block">
+            <h4>01 · The Problem &amp; Challenge</h4>
+            <p>${p.problem}</p>
+          </div>
+          <div class="case-block">
+            <h4>02 · Project Objectives</h4>
+            <ul>${p.objectives.map(o => `<li>${o}</li>`).join("")}</ul>
+          </div>
+          <div class="case-block">
+            <h4>03 · Engineering Concept</h4>
+            <p>${p.concept}</p>
+          </div>
+          <div class="case-block">
+            <h4>04 · Design &amp; Development Process</h4>
+            <p>${p.process}</p>
+          </div>
+          <div class="case-block">
+            <h4>05 · Technical Implementation</h4>
+            <p>${p.implementation}</p>
+          </div>
+          <div class="case-block">
+            <h4>06 · Tools &amp; Individual Contribution</h4>
+            <p style="margin-bottom:10px;">${p.contribution}</p>
+            <div class="tag-list">${p.tools.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+          </div>
+          <div class="case-block full">
+            <h4>07 · Testing, Simulation &amp; Validation</h4>
+            ${tableHtml}
+          </div>
+          <div class="case-block">
+            <h4>08 · Challenges &amp; Solutions</h4>
+            <p>${p.challenges}</p>
+          </div>
+          <div class="case-block">
+            <h4>09 · Final Outcome &amp; Lessons Learned</h4>
+            <p style="margin-bottom:10px;"><strong>Outcome:</strong> ${p.outcome}</p>
+            <p><strong>Key Lesson:</strong> ${p.lessons}</p>
+          </div>
+        </div>
+      `;
+
+      // Bind gallery interactions
+      if (p.gallery && p.gallery.length > 0) {
+        let currentImgIdx = 0;
+        const stage = document.getElementById("galleryStage");
+        const activeImg = document.getElementById("activeGalleryImg");
+        const activeCaption = document.getElementById("activeGalleryCaption");
+        const counter = document.getElementById("galleryCounter");
+        const thumbs = document.querySelectorAll("#galleryThumbs .gallery-thumb");
+
+        thumbs.forEach(btn => {
+          btn.addEventListener("click", () => {
+            currentImgIdx = Number(btn.dataset.imgIdx);
+            const item = p.gallery[currentImgIdx];
+            activeImg.src = item.src;
+            activeImg.alt = item.caption;
+            activeCaption.textContent = item.caption;
+            counter.textContent = `${currentImgIdx + 1} / ${p.gallery.length} · Click to Zoom`;
+            thumbs.forEach(t => t.classList.remove("active"));
+            btn.classList.add("active");
+          });
+        });
+
+        stage.addEventListener("click", () => {
+          const item = p.gallery[currentImgIdx];
+          openLightbox(item.src, item.caption);
+        });
+      }
+
+      // Update Prev / Next labels
+      const prevIdx = (idx - 1 + PORTFOLIO_DATA.projects.length) % PORTFOLIO_DATA.projects.length;
+      const nextIdx = (idx + 1) % PORTFOLIO_DATA.projects.length;
+      document.getElementById("prevProjectBtn").textContent = `← ${PORTFOLIO_DATA.projects[prevIdx].num} · Prev`;
+      document.getElementById("nextProjectBtn").textContent = `Next · ${PORTFOLIO_DATA.projects[nextIdx].num} →`;
+
+      caseModal.classList.add("open");
+      caseModal.scrollTop = 0;
+      document.body.classList.add("modal-open");
+    }
+
+    function closeCaseStudy() {
+      caseModal.classList.remove("open");
+      document.body.classList.remove("modal-open");
+    }
+
+    function openLightbox(src, caption) {
+      lightboxImg.src = src;
+      lightboxImg.alt = caption;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add("open");
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+    }
+
+    /* ==========================================================================
+       EVENT LISTENERS & INTERACTIONS
+       ========================================================================== */
+    // Category Filters
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentFilter = btn.dataset.filter;
+        document.querySelectorAll(".filter-btn").forEach(b => {
+          b.classList.remove("active");
+          b.setAttribute("aria-selected", "false");
+        });
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected", "true");
+        renderProjects();
+      });
+    });
+
+    // Modal Controls
+    document.getElementById("closeCaseBtn").addEventListener("click", closeCaseStudy);
+    caseModal.addEventListener("click", (e) => {
+      if (e.target === caseModal) closeCaseStudy();
+    });
+    document.getElementById("prevProjectBtn").addEventListener("click", () => {
+      const prevIdx = (activeProjectIdx - 1 + PORTFOLIO_DATA.projects.length) % PORTFOLIO_DATA.projects.length;
+      openCaseStudy(prevIdx);
+    });
+    document.getElementById("nextProjectBtn").addEventListener("click", () => {
+      const nextIdx = (activeProjectIdx + 1) % PORTFOLIO_DATA.projects.length;
+      openCaseStudy(nextIdx);
+    });
+
+    // Lightbox Controls
+    document.getElementById("closeLightboxBtn").addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        if (lightbox.classList.contains("open")) closeLightbox();
+        else if (caseModal.classList.contains("open")) closeCaseStudy();
+      }
+    });
+
+    // Theme Toggle
+    const themeToggle = document.getElementById("themeToggle");
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      try { localStorage.setItem("tr_portfolio_theme", theme); } catch (_) {}
+    }
+    try {
+      const saved = localStorage.getItem("tr_portfolio_theme");
+      if (saved === "light" || saved === "dark") applyTheme(saved);
+    } catch (_) {}
+
+    themeToggle.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = current === "dark" ? "light" : "dark";
+      applyTheme(next);
+      showToast(`Switched to ${next} theme`);
+    });
+
+    // Mobile Menu
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mobileDrawer = document.getElementById("mobileDrawer");
+    mobileMenuBtn.addEventListener("click", () => {
+      const open = mobileDrawer.classList.toggle("open");
+      mobileDrawer.setAttribute("aria-hidden", String(!open));
+    });
+    document.querySelectorAll(".mobile-nav-link").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileDrawer.classList.remove("open");
+        mobileDrawer.setAttribute("aria-hidden", "true");
+      });
+    });
+
+    // CV / Resume Button
+    document.getElementById("cvResumeBtn").addEventListener("click", () => {
+      const url = (PORTFOLIO_DATA.cvUrl || "").trim();
+      if (url) {
+        window.open(url, "_blank", "noopener,noreferrer");
+      } else {
+        showToast("Set PORTFOLIO_DATA.cvUrl in index.html to link your CV");
+      }
+    });
+
+    // Copy Email
+    document.getElementById("copyEmailBtn").addEventListener("click", () => {
+      const email = PORTFOLIO_DATA.email;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(() => showToast("Copied: " + email)).catch(() => fallbackCopy(email));
+      } else {
+        fallbackCopy(email);
+      }
+    });
+    function fallbackCopy(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); showToast("Copied: " + text); } catch (_) {}
+      document.body.removeChild(ta);
+    }
+
+    // Functional Mailto Composer
+    document.getElementById("mailtoComposer").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("senderName").value.trim();
+      const subject = document.getElementById("msgSubject").value.trim();
+      const body = document.getElementById("msgBody").value.trim();
+      const fullBody = `Hello Tashfiq,\n\n${body}\n\nBest regards,\n${name}`;
+      const mailtoUrl = `mailto:${PORTFOLIO_DATA.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullBody)}`;
+      window.location.href = mailtoUrl;
+      showToast("Opening your email client...");
+    });
+
+    // Live Rajshahi Clock (Asia/Dhaka)
+    function updateClock() {
+      const el = document.getElementById("liveClock");
+      if (!el) return;
+      try {
+        const now = new Date();
+        el.textContent = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Asia/Dhaka",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true
+        }).format(now).toUpperCase();
+      } catch (_) {
+        el.textContent = new Date().toLocaleTimeString();
+      }
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Scroll Progress & Active Nav Highlight
+    const scrollBar = document.getElementById("scrollProgress");
+    const sections = document.querySelectorAll("main section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    window.addEventListener("scroll", () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+      scrollBar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+
+      let currentId = "";
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 160) currentId = sec.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${currentId}`);
+      });
+    }, { passive: true });
+
+    // Scroll Reveal & Counter Animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          entry.target.querySelectorAll(".counter").forEach(counter => {
+            if (counter.dataset.animated) return;
+            counter.dataset.animated = "1";
+            const target = Number(counter.dataset.target);
+            const duration = 900;
+            const start = performance.now();
+            function step(now) {
+              const progress = Math.min(1, (now - start) / duration);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              counter.textContent = Math.round(eased * target);
+              if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          });
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    // Initial Render
+    renderProjects();
+  </script>
+</body>
+</html>
